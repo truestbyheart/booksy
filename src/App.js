@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Header from "./Components/Header/Header";
+import "./App.css";
+import axios from "axios";
+import BookList from "./Components/Book/Book-List/BookList";
 
-function App() {
+const App = () => {
+  // config provider
+  const baseUrl = "https://www.googleapis.com/books/v1/volumes";
+  const [books, setBooks] = useState(["yes"]);
+
+  const searchForBooks = async (e, title) => {
+    e.preventDefault();
+    window.location.href =
+      window.location.href.split("#")[0] + `#search=${title}`;
+    const result = await axios.get(`${baseUrl}?q=${title}`);
+    setBooks(result.data.items);
+  };
+
+  useEffect(() => {
+    const title = window.location.href.split("search=")[1];
+    if (title) {
+      axios
+        .get(`${baseUrl}?q=${title}`)
+        .then((result) => setBooks(result.data.items))
+        .catch((error) => console.log(error));
+    }
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header apiCall={searchForBooks} />
+      <div className="container">
+        <div className="row">
+          <BookList books={books} />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
