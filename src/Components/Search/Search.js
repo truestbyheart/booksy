@@ -7,9 +7,12 @@ export default function Search({ searchForBooks }) {
   };
   return (
     <div className="w-100 d-flex justify-content-center align-items-center">
-      <form className="mt-2 w-100" onSubmit={(e) => searchForBooks(e, title)}>
+      <form
+        className=" ml-2 mt-2 w-100"
+        onSubmit={(e) => searchForBooks(e, title)}
+      >
         <input
-          className="form-control mr-sm-2 w-100"
+          className="search form-control ml-4 mr-sm-2 w-75"
           type="search"
           placeholder="Search"
           aria-label="Search"

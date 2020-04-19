@@ -1,6 +1,9 @@
 import React from "react";
+import Search from "../Search/Search";
+import { useParams } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ searchForBooks }) => {
+  let { id } = useParams();
   return (
     <div>
       <header>
@@ -9,6 +12,7 @@ const Header = () => {
             <a className="navbar-brand text-white" href="/">
               BOOKSY
             </a>
+            {id === undefined && <Search searchForBooks={searchForBooks} />}
           </div>
         </nav>
       </header>

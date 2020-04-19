@@ -1,5 +1,6 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 
 const Book = ({ book, loading }) => {
   if (typeof book === "object" && !loading) {
@@ -14,13 +15,18 @@ const Book = ({ book, loading }) => {
     return (
       <div className="mt-4 col-md-3 col-sm-6 col-xs-6">
         <div className="card">
-          <img src={thumbnail && thumbnail} alt={title} />
+          <div className="center">
+            <img src={thumbnail ? thumbnail : null} alt={title} />
+          </div>
+
           <div className="card-body">
-            <h6 className="text-nowrap text-truncate">{title}</h6>
+            <Link to={`/book/${book.id}`}>
+              <h6 className="text-nowrap text-truncate">{title}</h6>
+            </Link>
             <div className="row">
               {authors &&
                 authors.map((author) => (
-                  <small className="col">{author}</small>
+                  <small className="col-12">{author}</small>
                 ))}
             </div>
             <small>&copy; {publisher}</small>

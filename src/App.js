@@ -3,7 +3,6 @@ import Header from "./Components/Header/Header";
 import "./App.css";
 import axios from "axios";
 import BookList from "./Components/Book/Book-List/BookList";
-import Search from "./Components/Search/Search";
 
 const App = () => {
   // config provider
@@ -18,7 +17,7 @@ const App = () => {
     setLoading(true);
     window.location.href =
       window.location.href.split("#")[0] + `#search=${title}`;
-    const result = await axios.get(`${baseUrl}?q=${title}`);
+    const result = await axios.get(`${baseUrl}?q=${title}&maxResults=40`);
     setBooks(result.data.items);
     setLoading(false);
   };
@@ -41,13 +40,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header />
+      <Header searchForBooks={searchForBooks} />
       <div className="container">
-        <div className="row">
-          <div className="container w-100">
-            <Search searchForBooks={searchForBooks} />
-          </div>
-        </div>
         <div className="row">
           <BookList books={books} loading={loading} />
         </div>
