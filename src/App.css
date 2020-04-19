@@ -1,0 +1,7 @@
+.card {
+  border: none;
+}
+
+.card img {
+  object-fit: scale-down;
+}
